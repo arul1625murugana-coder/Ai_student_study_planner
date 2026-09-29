@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Subjects | StudyAI{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>📚 Subjects</h1>
+
+        <p>
+            Manage your subjects and chapters.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="dashboard-card mb-4">
+
+    <h2>Add Subject</h2>
+
+    <form method="POST" class="form-grid">
+
+        <input name="name" placeholder="Subject name" required>
+
+        <select name="difficulty">
+
+            <option>Easy</option>
+
+            <option selected>
+                Medium
+            </option>
+
+            <option>Hard</option>
+
+        </select>
+
+        <input type="date" name="exam_date">
+
+        <button class="btn-primary-custom">
+            Add Subject
+        </button>
+
+    </form>
+
+</div>
+
+
+<div class="subject-grid">
+
+    {% for subject in subjects %}
+
+    <div class="subject-card">
+
+        <div class="subject-card-top">
+
+            <div class="subject-icon">
+                📘
+            </div>
+
+            <div>
+
+                <h3>
+                    {{ subject.name }}
+                </h3>
+
+                <span>
+                    {{ subject.difficulty }}
+                </span>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <h5>Add Chapter</h5>
+
+        <form method="POST" action="{{ url_for(
+            'add_chapter',
+            subject_id=subject.id
+        ) }}">
+
+            <input name="name" placeholder="Chapter name" required>
+
+            <select name="difficulty">
+
+                <option>Easy</option>
+                <option selected>Medium</option>
+                <option>Hard</option>
+
+            </select>
+
+            <button class="btn-secondary-custom">
+                Add Chapter
+            </button>
+
+        </form>
+
+        <div class="chapters">
+
+            {% for chapter in subject.chapters %}
+
+            <div class="chapter-row">
+
+                <span>
+                    {{ chapter.name }}
+                </span>
+
+                {% if chapter.status == "Completed" %}
+
+                <span class="badge bg-success">
+                    Completed
+                </span>
+
+                {% else %}
+
+                <span class="badge bg-warning">
+                    {{ chapter.status }}
+                </span>
+
+                {% endif %}
+
+            </div>
+
+            {% else %}
+
+            <p class="text-muted">
+                No chapters added.
+            </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+        <h3>No subjects yet 📚</h3>
+        <p>Add your first subject above.</p>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Profile | StudyAI{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>👤 Profile</h1>
+
+        <p>
+            Manage your academic profile.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="dashboard-card profile-card">
+
+    <form method="POST">
+
+        <label>Name</label>
+
+        <input name="name" value="{{ current_user.name }}" required>
+
+
+        <label>Email</label>
+
+        <input value="{{ current_user.email }}" disabled>
+
+
+        <label>Course</label>
+
+        <input name="course" value="{{ current_user.course or '' }}">
+
+
+        <label>Department</label>
+
+        <input name="department" value="{{ current_user.department or '' }}">
+
+
+        <label>Year</label>
+
+        <input name="year" value="{{ current_user.year or '' }}">
+
+
+        <label>Semester</label>
+
+        <input name="semester" value="{{ current_user.semester or '' }}">
+
+
+        <label>Daily Study Hours</label>
+
+        <input type="number" step="0.5" min="0" name="study_hours" value="{{ current_user.study_hours }}">
+
+
+        <button class="btn-primary-custom">
+            Save Profile
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

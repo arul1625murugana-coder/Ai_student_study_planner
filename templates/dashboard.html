@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | StudyAI{% endblock %}
+
+{% block content %}
+
+<div class="top-header">
+
+    <div>
+
+        <h1>
+            Good Morning, {{ current_user.name }} 👋
+        </h1>
+
+        <p>
+            Let's make today productive.
+        </p>
+
+    </div>
+
+    <div class="profile-mini">
+        🎓 {{ current_user.course or "Student" }}
+    </div>
+
+</div>
+
+
+<div class="dashboard-grid">
+
+    <div class="stat-card">
+
+        <div class="stat-icon">📚</div>
+
+        <h3>{{ subjects|length }}</h3>
+
+        <p>Subjects</p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">🎯</div>
+
+        <h3>{{ progress }}%</h3>
+
+        <p>Overall Progress</p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">📝</div>
+
+        <h3>{{ assignments|length }}</h3>
+
+        <p>Assignments</p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">🔥</div>
+
+        <h3>0</h3>
+
+        <p>Study Streak</p>
+
+    </div>
+
+</div>
+
+
+<div class="content-grid">
+
+    <div class="dashboard-card">
+
+        <div class="card-heading">
+
+            <h2>Today's Study Plan</h2>
+
+            <a href="{{ url_for('planner') }}">
+                View Plan
+            </a>
+
+        </div>
+
+        {% if tasks %}
+
+        {% for task in tasks[:5] %}
+
+        <div class="task-row">
+
+            <div>
+
+                <strong>
+                    {{ task.title }}
+                </strong>
+
+                <small>
+                    {{ task.duration }} minutes
+                </small>
+
+            </div>
+
+            <span class="badge bg-primary">
+                {{ task.status }}
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <div class="empty-state">
+
+            <div>🤖</div>
+
+            <p>
+                No study plan yet.
+            </p>
+
+            <a class="btn-primary-custom small" href="{{ url_for('planner') }}">
+
+                Generate AI Plan
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <div class="card-heading">
+
+            <h2>Subject Progress</h2>
+
+        </div>
+
+        {% for subject in subjects %}
+
+        {% set total = subject.chapters|length %}
+
+        {% set completed = subject.chapters|
+        selectattr("status", "equalto", "Completed")|
+        list|length %}
+
+        {% if total > 0 %}
+
+        {% set percent =
+        (completed / total * 100)|round|int %}
+
+        {% else %}
+
+        {% set percent = 0 %}
+
+        {% endif %}
+
+        <div class="subject-progress">
+
+            <div class="progress-title">
+
+                <span>
+                    {{ subject.name }}
+                </span>
+
+                <span>
+                    {{ percent }}%
+                </span>
+
+            </div>
+
+            <div class="progress">
+
+                <div class="progress-bar" style="width: {{ percent }}%">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <p>
+            Add subjects to see progress.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

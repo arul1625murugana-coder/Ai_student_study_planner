@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Register | StudyAI{% endblock %}
+
+{% block content %}
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+        <div class="auth-icon">
+            🎓
+        </div>
+
+        <h1>Create Account</h1>
+
+        <p>
+            Start your personalized learning journey.
+        </p>
+
+        <form method="POST">
+
+            <input name="name" placeholder="Full Name" required>
+
+            <input type="email" name="email" placeholder="Email" required>
+
+            <input type="password" name="password" placeholder="Password" required>
+
+            <input name="course" placeholder="Course">
+
+            <input name="department" placeholder="Department">
+
+            <input name="year" placeholder="Year">
+
+            <input name="semester" placeholder="Semester">
+
+            <button class="btn-primary-custom">
+                Create Account
+            </button>
+
+        </form>
+
+        <p class="auth-bottom">
+
+            Already have an account?
+
+            <a href="{{ url_for('login') }}">
+                Login
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Login | StudyAI{% endblock %}
+
+{% block content %}
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+        <div class="auth-icon">
+            🎓
+        </div>
+
+        <h1>Welcome Back</h1>
+
+        <p>
+            Login to continue your study journey.
+        </p>
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input type="email" name="email" required placeholder="Enter your email">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <input type="password" name="password" required placeholder="Enter password">
+
+            </div>
+
+            <button class="btn-primary-custom">
+                Login
+            </button>
+
+        </form>
+
+        <p class="auth-bottom">
+
+            Don't have an account?
+
+            <a href="{{ url_for('register') }}">
+                Create Account
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

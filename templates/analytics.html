@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics | StudyAI{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>📊 Performance Analytics</h1>
+
+        <p>
+            Track your academic progress.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="dashboard-card">
+
+    <canvas id="subjectChart"></canvas>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    const subjectNames = {{subject_data|
+        map(attribute = "name") |
+        list |
+        tojson
+}};
+
+    const subjectProgress = {{subject_data|
+        map(attribute = "progress") |
+        list |
+        tojson
+}};
+
+    new Chart(
+        document.getElementById("subjectChart"),
+        {
+            type: "bar",
+
+            data: {
+                labels: subjectNames,
+
+                datasets: [{
+                    label: "Subject Progress %",
+                    data: subjectProgress
+                }]
+            },
+
+            options: {
+                responsive: true,
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        }
+    );
+
+</script>
+
+{% endblock %}

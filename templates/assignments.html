@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Assignments | StudyAI{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>📋 Assignments</h1>
+
+        <p>
+            Track your academic assignments.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="dashboard-card mb-4">
+
+    <h2>Add Assignment</h2>
+
+    <form method="POST" class="form-grid">
+
+        <input name="title" placeholder="Assignment title" required>
+
+        <input name="subject" placeholder="Subject">
+
+        <input type="date" name="due_date" required>
+
+        <select name="priority">
+
+            <option>Low</option>
+            <option selected>Medium</option>
+            <option>High</option>
+
+        </select>
+
+        <button class="btn-primary-custom">
+            Add Assignment
+        </button>
+
+    </form>
+
+</div>
+
+
+<div class="dashboard-card">
+
+    <h2>Assignment List</h2>
+
+    {% for assignment in assignments %}
+
+    <div class="task-row">
+
+        <div>
+
+            <strong>
+                {{ assignment.title }}
+            </strong>
+
+            <small>
+                {{ assignment.subject or "General" }}
+                · Due {{ assignment.due_date }}
+            </small>
+
+        </div>
+
+        <span class="badge bg-primary">
+            {{ assignment.priority }}
+        </span>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+        No assignments yet.
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

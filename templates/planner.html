@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}AI Planner | StudyAI{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>🤖 AI Study Planner</h1>
+
+        <p>
+            Generate a personalized study schedule.
+        </p>
+
+    </div>
+
+    <button id="generatePlan" class="btn-primary-custom">
+
+        ✨ Generate AI Plan
+
+    </button>
+
+</div>
+
+
+<div id="planMessage" class="alert" style="display:none">
+</div>
+
+
+<div class="dashboard-card">
+
+    <h2>Study Schedule</h2>
+
+    {% if tasks %}
+
+    {% for task in tasks %}
+
+    <div class="task-row">
+
+        <div>
+
+            <strong>
+                {{ task.title }}
+            </strong>
+
+            <small>
+                📅 {{ task.study_date }}
+                · ⏱ {{ task.duration }} min
+            </small>
+
+        </div>
+
+        <span class="badge bg-primary">
+            {{ task.status }}
+        </span>
+
+    </div>
+
+    {% endfor %}
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <div class="empty-icon">
+            🤖
+        </div>
+
+        <h3>
+            Your AI plan is empty
+        </h3>
+
+        <p>
+            Add subjects and chapters first,
+            then generate your plan.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for(
+    'static',
+    filename='js/planner.js'
+) }}"></script>
+
+{% endblock %}
